@@ -1,0 +1,46 @@
+class Solution {
+public:
+    ListNode* removeNodes(ListNode* head) {
+        if (!head) return nullptr;
+        ListNode* prev = nullptr;
+        ListNode* curr = head;
+        
+        // Reverse the linked list
+        while (curr) {
+            ListNode* next = curr->next;
+            curr->next = prev;
+            prev = curr;
+            curr = next;
+        }
+        
+        // Now 'prev' is the head of the reversed list
+        ListNode* newHead = prev;
+        ListNode* temp = newHead;
+        int maxSoFar = temp->val;  // Start with the first node
+        
+        // Traverse the reversed list and remove nodes
+        while (temp && temp->next) {
+            if (temp->next->val < maxSoFar) {
+                // If the next node's value is smaller than maxSoFar, remove it
+                temp->next = temp->next->next;
+            } else {
+                // Otherwise, update maxSoFar and move to the next node
+                temp = temp->next;
+                maxSoFar = temp->val;
+            }
+        }
+        
+        // Reverse the list again to restore the original order
+        prev = nullptr;
+        curr = newHead;
+        while (curr) {
+            ListNode* next = curr->next;
+            curr->next = prev;
+            prev = curr;
+            curr = next;
+        }
+        
+        // 'prev' is now the head of the final, modified linked list
+        return prev;
+    }
+};
