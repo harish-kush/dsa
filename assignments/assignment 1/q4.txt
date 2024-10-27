@@ -1,0 +1,24 @@
+class Solution {
+public:
+   bool isSame(TreeNode* p, TreeNode* q){
+    if(p==NULL && q==NULL) return true;
+    if(p==NULL || q==NULL) return false;
+    if(p->val != q->val) return false;
+    return isSame(p->left, q->left) && isSame(p->right, q->right);
+    
+   }
+   TreeNode* invert(TreeNode* root){
+    if(root==NULL) return root;
+    swap(root->left,root->right);
+    invert(root->left);
+    invert(root->right);
+    return root;
+   }
+    bool isSymmetric(TreeNode* root) {
+        if(root==NULL) return true;
+        invert(root->left);
+        bool flag = isSame(root->left,root->right);
+         invert(root->left);
+         return flag;
+    }
+};

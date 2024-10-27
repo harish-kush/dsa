@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int level(TreeNode* root){
+        if(root==NULL) return 0;
+        return 1 + max(level(root->left),level(root->right));
+    }
+    bool isBalanced(TreeNode* root) {
+        if(root==NULL) return true;
+        int levelofleft = level(root->left);
+        int levelofright = level(root->right);
+        int d = abs(levelofleft-levelofright);
+        if(d>1) return false;
+        bool leftAns = isBalanced(root->left);
+        if(leftAns==false) return false;
+        bool rightAns = isBalanced(root->right);
+        if(rightAns==false) return false;
+        return true;
+    }
+};
