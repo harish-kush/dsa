@@ -1,0 +1,22 @@
+class Solution {
+public:
+    TreeNode* helper(vector<int>& in, int inlo, int inhi, vector<int>& post, int postlo, int posthi){
+        if(inlo > inhi) return NULL;
+        TreeNode* root = new TreeNode(post[posthi]);
+        if(inlo == inhi) return root;
+        int i = inlo;
+       while(i<=inhi){
+            if(in[i]==post[posthi]) break;
+            i++;
+       }
+       int lc = i - inlo;
+       int rc = inhi - i;
+       root->left = helper(in,inlo,i-1,post,postlo,postlo+lc-1);
+       root->right = helper(in,i+1,inhi,post,postlo+lc,posthi-1);
+       return root;
+    }
+    TreeNode* buildTree(vector<int>& in, vector<int>& post) {
+        int n = in.size();
+        return helper(in,0,n-1,post,0,n-1);
+    }
+};
