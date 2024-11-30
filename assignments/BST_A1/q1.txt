@@ -1,0 +1,13 @@
+void maxAndmin(TreeNode* root) {
+int mn = root->val, mx = root->val;
+TreeNode* temp = root;
+while(temp->left) {
+temp = temp->left;
+mn = temp->val;
+}
+while(root->right) {
+root = root->right;
+mx = root->val;
+}
+cout << mn << " " << mx << "\n";
+}

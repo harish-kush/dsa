@@ -1,0 +1,23 @@
+void helper(TreeNode* root, vector<int>& inorder){
+    if(!root) return;
+    helper(root->left,inorder);
+    inorder.push_back(root->val);
+    helper(root->right,inorder);
+}
+TreeNode* ansBST(vector<int>ans,int lo,int hi){
+    if(lo>hi) return NULL;
+    int mid = lo + ((hi-lo)/2);
+    TreeNode* tree = new TreeNode(ans[mid]);
+   tree->left = ansBST(ans,lo,mid-1);
+   tree->right = ansBST(ans,mid+1,hi);
+   return tree;
+}
+class Solution {
+public:
+    TreeNode* balanceBST(TreeNode* root) {
+        vector<int>inorder;
+        helper(root,inorder);
+        int n = inorder.size();
+        return ansBST(inorder,0,n-1);
+    }
+};

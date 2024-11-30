@@ -1,0 +1,23 @@
+void helper(TreeNode* root, vector<int>& inorder){
+    if(!root) return;
+    helper(root->left,inorder);
+    inorder.push_back(root->val);
+    helper(root->right,inorder);
+}
+class Solution {
+public:
+    int rangeSumBST(TreeNode* root, int low, int high) {
+        vector<int>inorder;
+        helper(root,inorder);
+        int n = inorder.size();
+        int i = 0;
+        int j=n-1;
+        while(inorder[i]!=low) i++;
+        while(inorder[j]!=high) j--;
+        int sum = 0;
+        for(int k = i;k<=j;k++){
+            sum+=inorder[k];
+        }
+        return sum;
+    }
+};
