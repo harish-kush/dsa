@@ -1,0 +1,2 @@
+
+by using endl or \n
